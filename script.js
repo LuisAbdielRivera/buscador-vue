@@ -3,13 +3,13 @@ const app = Vue.createApp({
     return {
       searchInput: "",
       dataColumns: ["title", "topic", "views"],
-      dataset: [] // Se llenará con datos de MongoDB
+      dataset: []
     };
   },
   methods: {
     async fetchVideos() {
       try {
-        const response = await fetch("http://localhost:5000/videos"); // URL del backend
+        const response = await fetch("http://localhost:5000/videos");
         this.dataset = await response.json();
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -17,7 +17,7 @@ const app = Vue.createApp({
     }
   },
   mounted() {
-    this.fetchVideos(); // Cargar datos desde MongoDB cuando la página se inicie
+    this.fetchVideos();
   }
 })
 

@@ -6,11 +6,9 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT;
 
-// Middlewares
 app.use(express.json());
 app.use(cors());
 
-// Conexión a MongoDB
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -18,7 +16,6 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log("Conectado a MongoDB"))
 .catch(err => console.error("Error conectando a MongoDB:", err));
 
-// Definir esquema y modelo de datos
 const VideoSchema = new mongoose.Schema({
   title: String,
   topic: String,
@@ -26,7 +23,6 @@ const VideoSchema = new mongoose.Schema({
 });
 const Video = mongoose.model('Video', VideoSchema);
 
-// Rutas API
 app.get('/videos', async (req, res) => {
   try {
     const videos = await Video.find();
