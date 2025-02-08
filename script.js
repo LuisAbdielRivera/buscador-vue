@@ -3,17 +3,21 @@ const app = Vue.createApp({
     return {
       searchInput: "",
       dataColumns: ["title", "topic", "views"],
-      dataset: [
-        { title: 'Unity vs Construct 3 | What Is The Best Game Engine?', topic: "Game Development", views: 1 },
-        { title: 'Unity vs Unreal Engine 4 | What Is The Ultimate Game Engine?', topic: "Game Development", views: 1 },
-        { title: 'Android Studio vs Xcode vs Google Flutter | DEBATE', topic: "App Development", views: 2 },
-        { title: 'How to Make Passive Income as a Programmer 🤑', topic: "General Programming", views: 1 },
-        { title: 'Is watching videos at 2x speed better for you?', topic: "General Programming", views: 1 },
-        { title: 'Unity Asset Store vs Unreal Marketplace | Which Is Better?', topic: "Game Development", views: 1 },
-        { title: 'Unity vs Unreal: Which Engine Makes You More Money', topic: "Game Development", views: 2 },
-        { title: 'Unity Bought Bolt | Visual Scripting for Game Developers', topic: "Game Development", views: 1 }
-      ]
+      dataset: [] // Se llenará con datos de MongoDB
+    };
+  },
+  methods: {
+    async fetchVideos() {
+      try {
+        const response = await fetch("http://localhost:5000/videos"); // URL del backend
+        this.dataset = await response.json();
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
     }
+  },
+  mounted() {
+    this.fetchVideos(); // Cargar datos desde MongoDB cuando la página se inicie
   }
 })
 
